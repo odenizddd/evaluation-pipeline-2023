@@ -22,7 +22,7 @@ install_requires = [
     "torch==1.11.0",
     "evaluate==0.4.0",
     "tqdm-multiprocess==0.0.11",
-    "accelerate@git+https://github.com/huggingface/accelerate@main",
+    "accelerate@git+https://github.com/huggingface/accelerate@v0.20.0",
     "transformers==4.26.1",
 ]
 dependency_links = []
