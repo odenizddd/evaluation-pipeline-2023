@@ -37,7 +37,6 @@ python finetune_classification.py \
   --per_device_train_batch_size $BSZ \
   --learning_rate $LR \
   --num_train_epochs $MAX_EPOCHS \
-  --evaluation_strategy steps \
   --patience $PATIENCE \
   --eval_every $EVAL_EVERY \
   --eval_steps $EVAL_EVERY \

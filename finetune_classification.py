@@ -354,7 +354,7 @@ def main():
                 "csv",
                 data_files=data_files,
                 cache_dir=model_args.cache_dir,
-                use_auth_token=True if model_args.use_auth_token else None,
+                #use_auth_token=True if model_args.use_auth_token else None,
             )
         else:
             # Loading a dataset from local json files
@@ -362,7 +362,7 @@ def main():
                 "json",
                 data_files=data_files,
                 cache_dir=model_args.cache_dir,
-                use_auth_token=True if model_args.use_auth_token else None,
+                #use_auth_token=True if model_args.use_auth_token else None,
             )
     # See more about loading any type of standard or custom dataset at
     # https://huggingface.co/docs/datasets/loading_datasets.html.
@@ -395,6 +395,7 @@ def main():
     # download model & vocab.
     config = AutoConfig.from_pretrained(
         model_args.config_name if model_args.config_name else model_args.model_name_or_path,
+        trust_remote_code=True,
         num_labels=num_labels,
         finetuning_task=data_args.task_name,
         cache_dir=model_args.cache_dir,
@@ -411,6 +412,7 @@ def main():
     try:
         model = AutoModelForSequenceClassification.from_pretrained(
             model_args.model_name_or_path,
+            trust_remote_code=True,
             from_tf=bool(".ckpt" in model_args.model_name_or_path),
             config=config,
             cache_dir=model_args.cache_dir,
