@@ -49,41 +49,41 @@ if __name__ == "__main__":
                                    pretrained=args.model_path,
                                    trust_remote_code=args.trust_remote_code,
                                    device="cuda")
-    # tasks = []
-    # if args.tasks == "all":
-    #     for task_type in TASKS.keys():
-    #         tasks.extend(TASKS[task_type])
-    # else:
-    #     tasks = TASKS[args.tasks]
+    tasks = []
+    if args.tasks == "all":
+        for task_type in TASKS.keys():
+            tasks.extend(TASKS[task_type])
+    else:
+        tasks = TASKS[args.tasks]
 
-    # accuracies = {}
-    # # Iterate through tasks, get accuracies
-    # for task in tasks:
-    #     if task in TASKS["blimp"]:
-    #         template = None
-    #         task_title = task.split(".json")[0]
-    #         task = f"blimp_from_file:filter-data/blimp_filtered/{task}"
-    #     elif task in TASKS["supplement"]:
-    #         template = None
-    #         task_title = task.split(".json")[0]
-    #         task = f"blimp_from_file:filter-data/supplement_filtered/{task}"
-    #     else:
-    #         raise ValueError("Unrecognized task!")
-    #     accuracies[task_title] = accuracy_on_task(task, eval_model, template,
-    #                 args.num_fewshot)
-    #     print(f"{task_title}:\t{accuracies[task_title] * 100:.2f}%")
-    #     # Write scores to file
-    #     out_path = os.path.join(args.model_path, "zeroshot", task_title, "eval_results.json")
-    #     out_dir = os.path.dirname(out_path)
-    #     if not os.path.exists(out_dir):
-    #         os.makedirs(out_dir)
-    #     with open(out_path, 'w') as out_file:
-    #         json.dump({"eval_accuracy": accuracies[task_title]}, out_file)
+    accuracies = {}
+    # Iterate through tasks, get accuracies
+    for task in tasks:
+        if task in TASKS["blimp"]:
+            template = None
+            task_title = task.split(".json")[0]
+            task = f"blimp_from_file:filter-data/blimp_filtered/{task}"
+        elif task in TASKS["supplement"]:
+            template = None
+            task_title = task.split(".json")[0]
+            task = f"blimp_from_file:filter-data/supplement_filtered/{task}"
+        else:
+            raise ValueError("Unrecognized task!")
+        accuracies[task_title] = accuracy_on_task(task, eval_model, template,
+                    args.num_fewshot)
+        print(f"{task_title}:\t{accuracies[task_title] * 100:.2f}%")
+        # Write scores to file
+        out_path = os.path.join(args.model_path, "zeroshot", task_title, "eval_results.json")
+        out_dir = os.path.dirname(out_path)
+        if not os.path.exists(out_dir):
+            os.makedirs(out_dir)
+        with open(out_path, 'w') as out_file:
+            json.dump({"eval_accuracy": accuracies[task_title]}, out_file)
 
-    # # Print scores
-    # print("\nScores:")
-    # for task in accuracies.keys():
-    #     print(f"{task}:\t{accuracies[task] * 100:.2f}%")
+    # Print scores
+    print("\nScores:")
+    for task in accuracies.keys():
+        print(f"{task}:\t{accuracies[task] * 100:.2f}%")
 
     if args.run_aoa:
         # Run AoA prediction evaluation
