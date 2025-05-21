@@ -101,6 +101,7 @@ def get_batched_surprisal(model, tokenizer, model_type, dataloader, word_mapping
                 labels = batch['input_ids']
         else:
             labels = batch['input_ids']
+        batch.pop('token_type_ids', None)
         outputs = model(**batch, labels=labels)
         surprisals = -F.log_softmax(outputs.logits, -1)
         labels_split = torch.tensor_split(labels, batch_size)
